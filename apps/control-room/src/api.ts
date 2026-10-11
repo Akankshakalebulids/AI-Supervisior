@@ -170,7 +170,7 @@ export async function executeMission(missionId: string, payload?: { agent_id?: s
 }
 
 export async function getMissionVerification(missionId: string): Promise<{ verifications: any[]; count: number }> {
-  return fetchJson(`/api/missions/${missionId}/verification`).catch(() => ({ verifications: [], count: 0 }));
+  return fetchJson<{ verifications: any[]; count: number }>(`/api/missions/${missionId}/verification`).catch(() => ({ verifications: [], count: 0 }));
 }
 
 
