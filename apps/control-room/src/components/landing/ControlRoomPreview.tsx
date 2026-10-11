@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { ExternalLink } from 'lucide-react';
+import { 
+  ShieldAlert, 
+  ExternalLink, 
+  Activity, 
+  Terminal, 
+  Zap
+} from 'lucide-react';
 import { ProviderLogo } from '../ProviderLogo';
 
 interface ControlRoomPreviewProps {
@@ -7,199 +13,247 @@ interface ControlRoomPreviewProps {
 }
 
 export const ControlRoomPreview: React.FC<ControlRoomPreviewProps> = ({ onLaunchControlRoom }) => {
-  const [activeTab, setActiveTab] = useState<'mission' | 'fleet' | 'events'>('mission');
+  const [intervened, setIntervened] = useState(false);
+  const [previewTab, setPreviewTab] = useState<'overview' | 'watchdog' | 'ast'>('overview');
 
   return (
-    <section id="control-room" className="as-section">
-      <div className="as-section-header">
-        <span className="as-section-tag">Interactive Interface</span>
-        <h2 className="as-section-title">
-          Inside the Control Room
-        </h2>
-        <p className="as-section-desc">
-          Unified command center providing real-time mission state, multi-agent fleet telemetry, watchdog loop diagnostics, and cryptographic verification reports.
-        </p>
-      </div>
-
-      <div className="as-preview-card">
-        {/* Mock Topbar matching actual Control Room layout */}
-        <div className="as-preview-topbar">
-          <div className="as-preview-controls">
-            <span className="as-preview-dot" style={{ backgroundColor: '#ef4444' }} />
-            <span className="as-preview-dot" style={{ backgroundColor: '#f59e0b' }} />
-            <span className="as-preview-dot" style={{ backgroundColor: '#22c55e' }} />
-            <span className="as-preview-title" style={{ marginLeft: '12px' }}>
-              AI Supervisor Control Room • Mission #msn-auth-jwt
-            </span>
+    <section id="control-room" className="as-editorial-section as-preview-section">
+      <div className="as-container">
+        {/* Section Header */}
+        <div className="as-editorial-header">
+          <div className="as-mono-tag">
+            <span>[ OPERATIONAL SURFACE // REAL-TIME CONTROL PLANE ]</span>
           </div>
-
-          <div className="as-preview-tabs">
-            <button
-              className={`as-preview-tab-btn ${activeTab === 'mission' ? 'active' : ''}`}
-              onClick={() => setActiveTab('mission')}
-            >
-              Mission DAG & Tasks
-            </button>
-            <button
-              className={`as-preview-tab-btn ${activeTab === 'fleet' ? 'active' : ''}`}
-              onClick={() => setActiveTab('fleet')}
-            >
-              Agent Fleet Matrix
-            </button>
-            <button
-              className={`as-preview-tab-btn ${activeTab === 'events' ? 'active' : ''}`}
-              onClick={() => setActiveTab('events')}
-            >
-              Supervisory Watchdog Log
-            </button>
-          </div>
+          <h2 className="as-editorial-title">
+            Inside the Control Room
+          </h2>
+          <p className="as-editorial-sub">
+            The mission operations center for autonomous software development. Telemetry, event streams, watchdog intercepts, and cross-agent memory in a single pane of glass.
+          </p>
         </div>
 
-        {/* Preview Content Body */}
-        <div className="as-preview-body">
-          {activeTab === 'mission' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px' }}>
-                <div>
-                  <div style={{ fontSize: '16px', fontWeight: 600, color: 'var(--as-text-primary)' }}>
-                    Mission: JWT Auth Layer Refactoring & Token Migration
-                  </div>
-                  <div style={{ fontSize: '12px', color: 'var(--as-text-muted)', marginTop: '4px' }}>
-                    Status: <span style={{ color: 'var(--as-blue-ice)', fontWeight: 600 }}>RUNNING</span> • 3 of 4 Tasks Completed • Worktree Isolated
-                  </div>
-                </div>
-                <div style={{ display: 'flex', gap: '8px' }}>
-                  <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', padding: '4px 10px', background: 'rgba(52, 120, 246, 0.15)', border: '1px solid rgba(52, 120, 246, 0.3)', borderRadius: '4px', color: 'var(--as-blue-ice)' }}>
-                    Watchdog: ARMED
-                  </span>
-                </div>
+        {/* Large Cinematic Desktop Application Frame */}
+        <div className="as-app-showcase">
+          {/* macOS Desktop Chrome Bar */}
+          <div className="as-app-chrome">
+            <div className="as-chrome-left">
+              <div className="as-chrome-dots">
+                <span className="as-dot red" />
+                <span className="as-dot yellow" />
+                <span className="as-dot green" />
+              </div>
+              <span className="as-chrome-title">AI Supervisor — Mission Control Room (Local Desktop Engine)</span>
+            </div>
+            <div className="as-chrome-right">
+              <div className="as-chrome-badge">
+                <span className="as-pulse-indicator" />
+                <span>WS: 127.0.0.1:8000 (3ms)</span>
+              </div>
+              <button 
+                onClick={onLaunchControlRoom}
+                className="as-chrome-launch-btn"
+                title="Open the real live Control Room application"
+              >
+                <span>Launch Live App</span>
+                <ExternalLink size={12} />
+              </button>
+            </div>
+          </div>
+
+          {/* App Workspace Canvas */}
+          <div className="as-app-workspace">
+            {/* Left Operational Sidebar */}
+            <div className="as-app-sidebar">
+              <div className="as-sidebar-brand">
+                <div className="as-sidebar-logo" />
+                <span>AI SUPERVISOR</span>
               </div>
 
-              {/* DAG Task List */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px' }}>
-                <div style={{ background: 'rgba(8, 13, 27, 0.8)', border: '1px solid var(--as-border-subtle)', borderRadius: '8px', padding: '14px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--as-text-muted)' }}>TASK 01</span>
-                    <span style={{ fontSize: '11px', color: '#22c55e', fontWeight: 600 }}>VERIFIED</span>
-                  </div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--as-text-primary)' }}>JWT Token Utilities</div>
-                  <div style={{ fontSize: '11px', color: 'var(--as-text-secondary)', marginTop: '6px' }}>Assigned: Claude Code • tokens.py</div>
-                </div>
+              <div className="as-sidebar-nav">
+                <button 
+                  className={`as-sidebar-nav-item ${previewTab === 'overview' ? 'active' : ''}`}
+                  onClick={() => setPreviewTab('overview')}
+                >
+                  <Activity size={14} />
+                  <span>Mission Telemetry</span>
+                </button>
+                <button 
+                  className={`as-sidebar-nav-item ${previewTab === 'watchdog' ? 'active' : ''}`}
+                  onClick={() => setPreviewTab('watchdog')}
+                >
+                  <ShieldAlert size={14} />
+                  <span>Watchdog Rules</span>
+                </button>
+                <button 
+                  className={`as-sidebar-nav-item ${previewTab === 'ast' ? 'active' : ''}`}
+                  onClick={() => setPreviewTab('ast')}
+                >
+                  <Terminal size={14} />
+                  <span>AST Scope Diffs</span>
+                </button>
+              </div>
 
-                <div style={{ background: 'rgba(8, 13, 27, 0.8)', border: '1px solid var(--as-border-subtle)', borderRadius: '8px', padding: '14px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--as-text-muted)' }}>TASK 02</span>
-                    <span style={{ fontSize: '11px', color: '#22c55e', fontWeight: 600 }}>VERIFIED</span>
-                  </div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--as-text-primary)' }}>Refresh Token DB Schema</div>
-                  <div style={{ fontSize: '11px', color: 'var(--as-text-secondary)', marginTop: '6px' }}>Assigned: Codex • 003_tokens.sql</div>
-                </div>
-
-                <div style={{ background: 'rgba(29, 59, 112, 0.3)', border: '1px solid var(--as-blue-bright)', borderRadius: '8px', padding: '14px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--as-blue-ice)' }}>TASK 03</span>
-                    <span style={{ fontSize: '11px', color: 'var(--as-blue-bright)', fontWeight: 600 }}>IN PROGRESS</span>
-                  </div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--as-text-primary)' }}>Middleware Token Verification</div>
-                  <div style={{ fontSize: '11px', color: 'var(--as-text-secondary)', marginTop: '6px' }}>Assigned: Claude Code • auth_middleware.py</div>
-                </div>
-
-                <div style={{ background: 'rgba(8, 13, 27, 0.6)', border: '1px solid var(--as-border-subtle)', borderRadius: '8px', padding: '14px', opacity: 0.7 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <span style={{ fontSize: '11px', fontFamily: 'var(--font-mono)', color: 'var(--as-text-muted)' }}>TASK 04</span>
-                    <span style={{ fontSize: '11px', color: 'var(--as-text-muted)' }}>QUEUED</span>
-                  </div>
-                  <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--as-text-primary)' }}>End-to-End Regression Test</div>
-                  <div style={{ fontSize: '11px', color: 'var(--as-text-secondary)', marginTop: '6px' }}>Assigned: Independent Verifier</div>
-                </div>
+              <div className="as-sidebar-footer">
+                <span className="as-sidebar-version">v1.2.0 • SQLite WAL</span>
+                <span className="as-sidebar-status">12 Rules Armed</span>
               </div>
             </div>
-          )}
 
-          {activeTab === 'fleet' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: 'var(--as-text-primary)' }}>
-                Configured Agent Fleet & Universal Adapters
-              </div>
+            {/* Main Application Telemetry Board */}
+            <div className="as-app-main">
+              {/* Top Mission Banner */}
+              <div className="as-mission-banner">
+                <div className="as-mission-info">
+                  <div className="as-mission-title-row">
+                    <span className="as-mission-id">#msn-489</span>
+                    <h3 className="as-mission-title">Migrate Auth Layer to Asymmetric Key Signatures</h3>
+                    <span className="as-mission-status-pill">RUNNING</span>
+                  </div>
+                  <div className="as-mission-meta">
+                    <span>Target: <code>src/auth/*</code></span>
+                    <span>•</span>
+                    <span>Cost: $1.28 / $8.00 Bounded</span>
+                    <span>•</span>
+                    <span>Invariants: 3 Armed</span>
+                  </div>
+                </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
-                {[
-                  { id: 'claude_code', name: 'Claude Code', provider: 'Anthropic', model: 'Sonnet 3.7', status: 'RUNNING', role: 'Active Primary Worker' },
-                  { id: 'codex', name: 'OpenAI Codex', provider: 'OpenAI', model: 'GPT-4o', status: 'IDLE', role: 'Fallback Handoff Specialist' },
-                  { id: 'hermes', name: 'Hermes Agent', provider: 'Nous Research', model: 'Hermes-4-70B', status: 'IDLE', role: 'Long-running Session Worker' },
-                  { id: 'digitalocean_managed', name: 'DO Managed Agent', provider: 'DigitalOcean', model: 'Gemma 4', status: 'READY', role: 'MicroVM Cloud Sandbox' },
-                  { id: 'gemini', name: 'Gemini CLI', provider: 'Google', model: 'Gemini 2.5', status: 'READY', role: 'Diagnostic Planning' },
-                  { id: 'qwen', name: 'Qwen Local', provider: 'Alibaba Cloud', model: 'Qwen 2.5 Coder', status: 'OFFLINE_READY', role: 'Local Air-gapped Fallback' }
-                ].map(agent => (
-                  <div
-                    key={agent.id}
-                    style={{
-                      background: 'rgba(8, 13, 27, 0.8)',
-                      border: '1px solid var(--as-border-subtle)',
-                      borderRadius: '8px',
-                      padding: '12px 14px',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '12px'
-                    }}
+                <div className="as-mission-actions">
+                  <button 
+                    className={`as-sim-btn ${intervened ? 'intervened' : ''}`}
+                    onClick={() => setIntervened(!intervened)}
+                    title="Simulate what happens when an agent loops or breaches boundaries"
                   >
-                    <ProviderLogo providerId={agent.id} size={28} />
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <div style={{ fontSize: '13px', fontWeight: 600, color: 'var(--as-text-primary)' }}>{agent.name}</div>
-                        <span style={{ fontSize: '10px', fontFamily: 'var(--font-mono)', color: agent.status === 'RUNNING' ? 'var(--as-blue-bright)' : 'var(--as-text-muted)' }}>
-                          {agent.status}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '11px', color: 'var(--as-text-muted)' }}>{agent.provider} • {agent.model}</div>
-                      <div style={{ fontSize: '11px', color: 'var(--as-blue-ice)', marginTop: '2px' }}>{agent.role}</div>
-                    </div>
+                    <Zap size={13} />
+                    <span>{intervened ? 'Reset Simulation' : 'Simulate Loop Intercept'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Intercept Alert Banner if Triggered */}
+              {intervened && (
+                <div className="as-intervention-banner">
+                  <div className="as-intervention-icon">
+                    <ShieldAlert size={16} color="#F59E0B" />
                   </div>
-                ))}
+                  <div className="as-intervention-text">
+                    <strong>WATCHDOG CIRCUIT BREAKER ENGAGED:</strong> Repeated failure signature detected (2x on line 42). Worker frozen. Worktree rolled back to clean commit <code>SHA 8fa31b</code>. Disproven approach stored in memory.
+                  </div>
+                  <button 
+                    className="as-intervention-dismiss"
+                    onClick={() => setIntervened(false)}
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              )}
+
+              {/* Multi-Agent Active Fleet Grid */}
+              <div className="as-fleet-strip">
+                <div className="as-agent-telemetry-card active">
+                  <div className="as-card-top">
+                    <div className="as-agent-brand">
+                      <ProviderLogo providerId="claude_code" size={18} />
+                      <span className="as-agent-title">Claude Code</span>
+                    </div>
+                    <span className="as-badge running">EXECUTING</span>
+                  </div>
+                  <div className="as-card-detail">
+                    <span>Task: <code>01-keygen.py</code></span>
+                    <span>Tokens: 18.4k • 230ms avg</span>
+                  </div>
+                  <div className="as-progress-bar">
+                    <div className="as-progress-fill" style={{ width: '75%' }} />
+                  </div>
+                </div>
+
+                <div className="as-agent-telemetry-card standby">
+                  <div className="as-card-top">
+                    <div className="as-agent-brand">
+                      <ProviderLogo providerId="codex" size={18} />
+                      <span className="as-agent-title">OpenAI Codex</span>
+                    </div>
+                    <span className="as-badge standby">STANDBY</span>
+                  </div>
+                  <div className="as-card-detail">
+                    <span>Role: Secondary Fallback</span>
+                    <span>Task: <code>02-tokens.sql</code> ready</span>
+                  </div>
+                  <div className="as-progress-bar">
+                    <div className="as-progress-fill" style={{ width: '0%' }} />
+                  </div>
+                </div>
+
+                <div className="as-agent-telemetry-card verified">
+                  <div className="as-card-top">
+                    <div className="as-agent-brand">
+                      <ProviderLogo providerId="gemini" size={18} />
+                      <span className="as-agent-title">Gemini CLI</span>
+                    </div>
+                    <span className="as-badge verified">COMPLETED</span>
+                  </div>
+                  <div className="as-card-detail">
+                    <span>Task: Architecture DAG</span>
+                    <span>Duration: 4.2s • Verified</span>
+                  </div>
+                  <div className="as-progress-bar">
+                    <div className="as-progress-fill verified" style={{ width: '100%' }} />
+                  </div>
+                </div>
+              </div>
+
+              {/* Streaming Real-Time Mission Terminal */}
+              <div className="as-app-terminal">
+                <div className="as-terminal-header">
+                  <div className="as-terminal-tab">
+                    <Terminal size={13} />
+                    <span>Real-Time Supervisory Stream (supervisor_events.jsonl)</span>
+                  </div>
+                  <span className="as-terminal-indicator">LIVE STREAM</span>
+                </div>
+                <div className="as-terminal-feed">
+                  <div className="as-feed-row">
+                    <span className="as-feed-time">14:51:02</span>
+                    <span className="as-feed-tag info">DISPATCH</span>
+                    <span className="as-feed-msg">Task 01 dispatched to ClaudeCodeAdapter in isolated worktree <code>.supervisor/wt-1</code></span>
+                  </div>
+                  <div className="as-feed-row">
+                    <span className="as-feed-time">14:51:04</span>
+                    <span className="as-feed-tag pass">AST_CHECK</span>
+                    <span className="as-feed-msg">AST diff parsed: 2 functions added in <code>src/auth/crypto.py</code> • Invariants preserved</span>
+                  </div>
+                  <div className="as-feed-row">
+                    <span className="as-feed-time">14:51:07</span>
+                    <span className="as-feed-tag pass">VERIFY</span>
+                    <span className="as-feed-msg">Air-gapped Sandbox executed: <code>pytest tests/test_auth.py</code> • 14 passed (0.8s)</span>
+                  </div>
+                  {intervened && (
+                    <div className="as-feed-row alert">
+                      <span className="as-feed-time">14:51:10</span>
+                      <span className="as-feed-tag warn">CIRCUIT_BREAKER</span>
+                      <span className="as-feed-msg">Watchdog intercepted repeated error signature • Worker halted • Clean rollback executed</span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          )}
-
-          {activeTab === 'events' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontFamily: 'var(--font-mono)', fontSize: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--as-border-subtle)', paddingBottom: '8px' }}>
-                <span style={{ color: 'var(--as-text-muted)' }}>LIVE SUPERVISORY EVENT STREAM</span>
-                <span style={{ color: 'var(--as-blue-bright)', display: 'flex', alignItems: 'center', gap: '4px' }}>
-                  <span className="as-pulse-dot" style={{ width: '6px', height: '6px' }} />
-                  WEBSOCKET CONNECTED
-                </span>
-              </div>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <div style={{ padding: '8px 12px', background: 'rgba(8, 13, 27, 0.7)', borderRadius: '6px', borderLeft: '3px solid var(--as-blue-electric)' }}>
-                  <span style={{ color: 'var(--as-text-muted)' }}>[14:24:12]</span> <span style={{ color: 'var(--as-blue-ice)' }}>claude_code</span> :: ToolCall: EditFile("auth_middleware.py", lines 45-62)
-                </div>
-                <div style={{ padding: '8px 12px', background: 'rgba(8, 13, 27, 0.7)', borderRadius: '6px', borderLeft: '3px solid #f59e0b' }}>
-                  <span style={{ color: 'var(--as-text-muted)' }}>[14:24:16]</span> <span style={{ color: '#f59e0b' }}>[WATCHDOG INTERVENTION]</span> Loop threshold 2 detected on test assertion. Agent requested auto-recovery strategy.
-                </div>
-                <div style={{ padding: '8px 12px', background: 'rgba(8, 13, 27, 0.7)', borderRadius: '6px', borderLeft: '3px solid var(--as-blue-bright)' }}>
-                  <span style={{ color: 'var(--as-text-muted)' }}>[14:24:18]</span> <span style={{ color: 'var(--as-blue-ice)' }}>SUPERVISOR_MEMORY</span> :: Saved verified fact: "JWT secret key must be loaded from os.environ['AUTH_JWT_SECRET']".
-                </div>
-                <div style={{ padding: '8px 12px', background: 'rgba(8, 13, 27, 0.7)', borderRadius: '6px', borderLeft: '3px solid #22c55e' }}>
-                  <span style={{ color: 'var(--as-text-muted)' }}>[14:24:25]</span> <span style={{ color: '#22c55e' }}>[VERIFICATION RUNNER]</span> Isolated sandbox build pass. AST diff matches approved scope.
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Footer Disclaimer & Launch Button */}
-        <div className="as-preview-disclaimer">
-          <div>
-            <span>Demonstration View</span> • Representative Control Room UI showing authentic state structures.
           </div>
-          <button
-            onClick={onLaunchControlRoom}
-            className="as-btn as-btn-primary as-btn-sm"
-          >
-            <span>Launch Operational Control Room</span>
-            <ExternalLink size={13} />
-          </button>
+
+          {/* Interactive Floating Annotation Badges */}
+          <div className="as-showcase-annotations">
+            <div className="as-annotation-item">
+              <span className="as-annotation-dot" />
+              <span>Multi-Agent Fleet Coordination</span>
+            </div>
+            <div className="as-annotation-item">
+              <span className="as-annotation-dot" />
+              <span>Watchdog Circuit Breakers</span>
+            </div>
+            <div className="as-annotation-item">
+              <span className="as-annotation-dot" />
+              <span>Deterministic Air-Gapped Verification</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

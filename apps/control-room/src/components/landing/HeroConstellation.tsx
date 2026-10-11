@@ -7,272 +7,279 @@ interface ConstellationAgent {
   provider: string;
   role: string;
   size: number;
-  // Desktop percentage coordinates (% of hero stage)
-  x: number;
-  y: number;
-  // Mobile percentage coordinates
-  mobileX: number;
-  mobileY: number;
-  driftClass: string;
-  depthFactor: number; // For mouse parallax
+  x: number; // percentage left on desktop
+  y: number; // percentage top on desktop
+  mobileX: number; // percentage left on mobile
+  mobileY: number; // percentage top on mobile
+  floatAnimation: string;
+  bloomDelay: number;
   status: string;
+  connectionType: string;
 }
 
-const SUPPORTED_FLEET_NODES: ConstellationAgent[] = [
+const SUPPORTED_AGENTS: ConstellationAgent[] = [
+  // 1. Claude Code — Prominent Focal Anchor (Top-Left)
   {
     id: 'claude_code',
     name: 'Claude Code',
     provider: 'Anthropic',
-    role: 'Autonomous Code Editing & CLI',
-    size: 78,
-    x: 14,
-    y: 22,
-    mobileX: 12,
-    mobileY: 8,
-    driftClass: 'as-drift-1',
-    depthFactor: 0.04,
-    status: 'Native Adapter Verified'
+    role: 'Autonomous CLI & Code Editing',
+    size: 190,
+    x: 8,
+    y: 12,
+    mobileX: 10,
+    mobileY: 6,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.15,
+    status: 'Native Adapter',
+    connectionType: 'CLI Subprocess'
   },
+  // 2. Cursor — Large Focal Anchor (Mid-Right)
+  {
+    id: 'cursor',
+    name: 'Cursor',
+    provider: 'Anysphere',
+    role: 'IDE Worktree Execution & Codebase Patches',
+    size: 180,
+    x: 84,
+    y: 46,
+    mobileX: 82,
+    mobileY: 52,
+    floatAnimation: 'as-float-slow-2',
+    bloomDelay: 0.28,
+    status: 'Worktree Bridge',
+    connectionType: 'IPC Protocol'
+  },
+  // 3. Devin — Prominent Anchor (Bottom-Left)
+  {
+    id: 'devin',
+    name: 'Devin',
+    provider: 'Cognition',
+    role: 'End-to-End Autonomous Engineering',
+    size: 165,
+    x: 9,
+    y: 68,
+    mobileX: 12,
+    mobileY: 78,
+    floatAnimation: 'as-float-slow-3',
+    bloomDelay: 0.42,
+    status: 'Cloud Sandbox',
+    connectionType: 'REST API'
+  },
+  // 4. OpenAI Codex — Medium-Large Node (Top-Right)
   {
     id: 'codex',
     name: 'OpenAI Codex',
     provider: 'OpenAI',
-    role: 'Precision Code Repair & Fallback Handoff',
-    size: 72,
-    x: 82,
-    y: 18,
-    mobileX: 84,
-    mobileY: 10,
-    driftClass: 'as-drift-2',
-    depthFactor: 0.035,
-    status: 'Native Adapter Verified'
+    role: 'Precision Code Repair & Algorithmic Handoff',
+    size: 155,
+    x: 81,
+    y: 12,
+    mobileX: 78,
+    mobileY: 8,
+    floatAnimation: 'as-float-slow-2',
+    bloomDelay: 0.22,
+    status: 'Native Adapter',
+    connectionType: 'Responses API'
   },
+  // 5. Google Gemini CLI — Medium Node (Upper-Center-Right)
   {
     id: 'gemini',
     name: 'Gemini CLI',
-    provider: 'Google',
-    role: 'Multimodal Analysis & Architecture Planning',
-    size: 70,
-    x: 86,
-    y: 52,
-    mobileX: 86,
-    mobileY: 78,
-    driftClass: 'as-drift-3',
-    depthFactor: 0.045,
-    status: 'Native Adapter Verified'
+    provider: 'Google DeepMind',
+    role: 'Architecture Planning & 1M-Token Context',
+    size: 140,
+    x: 65,
+    y: 4,
+    mobileX: 68,
+    mobileY: 2,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.35,
+    status: 'Native Adapter',
+    connectionType: 'SDK Runner'
   },
+  // 6. Windsurf — Medium Node (Mid-Left)
+  {
+    id: 'windsurf',
+    name: 'Windsurf',
+    provider: 'Codeium',
+    role: 'Cascade Flow & AST-Aware Generation',
+    size: 135,
+    x: 3,
+    y: 40,
+    mobileX: 4,
+    mobileY: 42,
+    floatAnimation: 'as-float-slow-3',
+    bloomDelay: 0.5,
+    status: 'Editor Bridge',
+    connectionType: 'Worktree Sync'
+  },
+  // 7. GitHub Copilot — Medium Node (Lower-Right)
+  {
+    id: 'copilot',
+    name: 'GitHub Copilot',
+    provider: 'Microsoft / GitHub',
+    role: 'Multi-file Edits & Workspace Actions',
+    size: 145,
+    x: 77,
+    y: 75,
+    mobileX: 76,
+    mobileY: 82,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.6,
+    status: 'Language Server',
+    connectionType: 'LSP / CLI'
+  },
+  // 8. Cline — Satellite Node (Lower-Center-Left)
+  {
+    id: 'cline',
+    name: 'Cline',
+    provider: 'Autonomous Protocol',
+    role: 'Terminal Execution & AST Patching',
+    size: 120,
+    x: 27,
+    y: 84,
+    mobileX: 30,
+    mobileY: 90,
+    floatAnimation: 'as-float-slow-2',
+    bloomDelay: 0.7,
+    status: 'Native Adapter',
+    connectionType: 'Local CLI'
+  },
+  // 9. Hermes Agent — Satellite Node (Lower-Center-Right)
   {
     id: 'hermes',
     name: 'Hermes Agent',
     provider: 'Nous Research',
-    role: 'Long-running Autonomous Agent Sessions',
-    size: 64,
-    x: 10,
-    y: 60,
-    mobileX: 14,
-    mobileY: 76,
-    driftClass: 'as-drift-4',
-    depthFactor: 0.03,
-    status: 'Droplet / Session Ready'
+    role: 'Persistent Open-Weight Agent Sessions',
+    size: 125,
+    x: 52,
+    y: 85,
+    mobileX: 52,
+    mobileY: 92,
+    floatAnimation: 'as-float-slow-3',
+    bloomDelay: 0.78,
+    status: 'Droplet Worker',
+    connectionType: 'SSH / Docker'
   },
+  // 10. DigitalOcean Agent — Satellite Node (Upper-Center-Left)
   {
-    id: 'digitalocean_managed',
-    name: 'DigitalOcean Managed Agent',
+    id: 'digitalocean',
+    name: 'DigitalOcean Agent',
     provider: 'DigitalOcean',
-    role: 'MicroVM Cloud Sandbox & Action Gateway',
-    size: 62,
-    x: 25,
-    y: 82,
+    role: 'Isolated MicroVM Cloud Sandbox',
+    size: 110,
+    x: 29,
+    y: 4,
     mobileX: 30,
-    mobileY: 88,
-    driftClass: 'as-drift-1',
-    depthFactor: 0.025,
-    status: 'MicroVM Isolation'
-  },
-  {
-    id: 'opencode',
-    name: 'OpenCode',
-    provider: 'Open-Source',
-    role: 'Open Weight Agentic Engine',
-    size: 56,
-    x: 74,
-    y: 78,
-    mobileX: 70,
-    mobileY: 90,
-    driftClass: 'as-drift-2',
-    depthFactor: 0.03,
-    status: 'Local Runtime Verified'
-  },
-  {
-    id: 'qwen',
-    name: 'Qwen Local',
-    provider: 'Alibaba Cloud',
-    role: 'On-device Local LLM Offline Agent',
-    size: 54,
-    x: 24,
-    y: 12,
-    mobileX: 35,
-    mobileY: 4,
-    driftClass: 'as-drift-3',
-    depthFactor: 0.02,
-    status: 'Offline Local Runtime'
-  },
-  {
-    id: 'kimi',
-    name: 'Kimi Code',
-    provider: 'Moonshot AI',
-    role: 'Ultra Long-context Code Diagnostics',
-    size: 50,
-    x: 68,
-    y: 14,
-    mobileX: 65,
-    mobileY: 4,
-    driftClass: 'as-drift-4',
-    depthFactor: 0.025,
-    status: 'Adapter Available'
-  },
-  {
-    id: 'goose',
-    name: 'Goose',
-    provider: 'Block',
-    role: 'Open Extensible On-machine Agent',
-    size: 52,
-    x: 6,
-    y: 40,
-    mobileX: 6,
-    mobileY: 46,
-    driftClass: 'as-drift-1',
-    depthFactor: 0.035,
-    status: 'Adapter Available'
-  },
-  {
-    id: 'cline',
-    name: 'Cline',
-    provider: 'Cline',
-    role: 'Autonomous Coding & Patching',
-    size: 52,
-    x: 91,
-    y: 35,
-    mobileX: 92,
-    mobileY: 44,
-    driftClass: 'as-drift-2',
-    depthFactor: 0.03,
-    status: 'Adapter Available'
+    mobileY: 2,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.85,
+    status: 'MicroVM Sandbox',
+    connectionType: 'Cloud Hypervisor'
   }
 ];
 
-// Atmospheric radiant light satellites echoing reference frames 4 & 5
-interface SatelliteOrb {
+// Atmospheric luminous gradient spheres inspired directly by reference video frames
+interface RadiantOrb {
   x: number;
   y: number;
   size: number;
-  colorClass: string;
+  glowClass: string;
   driftClass: string;
 }
 
-const SATELLITE_ORBS: SatelliteOrb[] = [
-  { x: 19, y: 38, size: 26, colorClass: 'as-orb-blue', driftClass: 'as-drift-2' },
-  { x: 80, y: 36, size: 30, colorClass: 'as-orb-cyan', driftClass: 'as-drift-1' },
-  { x: 30, y: 70, size: 22, colorClass: 'as-orb-royal', driftClass: 'as-drift-4' },
-  { x: 70, y: 64, size: 28, colorClass: 'as-orb-blue', driftClass: 'as-drift-3' },
-  { x: 48, y: 88, size: 20, colorClass: 'as-orb-cyan', driftClass: 'as-drift-2' },
-  { x: 52, y: 8,  size: 24, colorClass: 'as-orb-royal', driftClass: 'as-drift-1' }
+const RADIANT_ORBS: RadiantOrb[] = [
+  { x: 19, y: 32, size: 105, glowClass: 'as-orb-electric', driftClass: 'as-float-slow-2' },
+  { x: 74, y: 34, size: 120, glowClass: 'as-orb-ice', driftClass: 'as-float-slow-1' },
+  { x: 38, y: 76, size: 85,  glowClass: 'as-orb-royal', driftClass: 'as-float-slow-3' },
+  { x: 62, y: 78, size: 95,  glowClass: 'as-orb-cyan', driftClass: 'as-float-slow-2' }
 ];
 
 export const HeroConstellation: React.FC = () => {
-  const [mouseOffset, setMouseOffset] = useState({ x: 0, y: 0 });
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
 
-  // Responsive breakpoint tracking
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 820);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 900);
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Desktop Mouse Parallax
-  useEffect(() => {
-    if (isMobile) return;
-
-    let rafId: number;
-    const handleMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
-        setMouseOffset({
-          x: (e.clientX - centerX),
-          y: (e.clientY - centerY)
-        });
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(rafId);
-    };
-  }, [isMobile]);
-
   return (
-    <div className="as-constellation-stage" ref={containerRef} aria-hidden="false">
-      {/* Radiant Satellite Glow Orbs */}
-      {SATELLITE_ORBS.map((orb, idx) => (
+    <div className="as-constellation-stage" ref={stageRef} aria-label="Supported AI Agents Constellation">
+      {/* 1. Luminous Ambient Gradient Spheres (From Video Reference) */}
+      {RADIANT_ORBS.map((orb, i) => (
         <div
-          key={`orb-${idx}`}
-          className={`as-satellite-orb ${orb.colorClass} ${orb.driftClass}`}
+          key={`orb-${i}`}
+          className={`as-radiant-orb ${orb.glowClass} ${orb.driftClass}`}
           style={{
             left: `${orb.x}%`,
             top: `${orb.y}%`,
             width: `${orb.size}px`,
-            height: `${orb.size}px`,
-            opacity: 0.75,
-            transform: `translate3d(${mouseOffset.x * 0.015}px, ${mouseOffset.y * 0.015}px, 0)`
+            height: `${orb.size}px`
           }}
+          aria-hidden="true"
         />
       ))}
 
-      {/* Dynamic Circular Agent Constellation */}
-      {SUPPORTED_FLEET_NODES.map((agent, index) => {
+      {/* 2. Coordinated Agent Nodes with Large Visual Scale & Authentic Logos */}
+      {SUPPORTED_AGENTS.map((agent) => {
         const posX = isMobile ? agent.mobileX : agent.x;
         const posY = isMobile ? agent.mobileY : agent.y;
-        const nodeSize = isMobile ? Math.max(agent.size * 0.78, 42) : agent.size;
-        
-        // Parallax transform calculation
-        const parallaxX = isMobile ? 0 : mouseOffset.x * agent.depthFactor;
-        const parallaxY = isMobile ? 0 : mouseOffset.y * agent.depthFactor;
+        const finalSize = isMobile ? Math.max(Math.round(agent.size * 0.58), 54) : agent.size;
+        const logoSize = Math.round(finalSize * 0.44);
 
         return (
           <div
             key={agent.id}
-            role="button"
-            tabIndex={0}
-            aria-label={`${agent.name} supported AI agent (${agent.provider})`}
-            className={`as-constellation-node as-node-blooming ${agent.driftClass}`}
+            className={`as-node-anchor ${agent.floatAnimation}`}
             style={{
               left: `${posX}%`,
               top: `${posY}%`,
-              width: `${nodeSize}px`,
-              height: `${nodeSize}px`,
-              animationDelay: `${0.1 + index * 0.06}s`,
-              transform: `translate3d(${parallaxX}px, ${parallaxY}px, 0)`
+              width: `${finalSize}px`,
+              height: `${finalSize}px`
             }}
           >
-            <div className="as-node-inner">
-              <ProviderLogo providerId={agent.id} size={Math.round(nodeSize * 0.52)} />
-            </div>
+            {/* Inner blooming element (staggered opening sequence) */}
+            <div
+              className="as-node-card as-bloom-entrance"
+              style={{
+                animationDelay: `${agent.bloomDelay}s`
+              }}
+              onMouseEnter={() => setActiveTooltip(agent.id)}
+              onMouseLeave={() => setActiveTooltip(null)}
+              onFocus={() => setActiveTooltip(agent.id)}
+              onBlur={() => setActiveTooltip(null)}
+              tabIndex={0}
+              role="button"
+              aria-label={`${agent.name} — ${agent.provider} supported agent`}
+            >
+              {/* Outer soft glow ring */}
+              <div className="as-node-ring" />
 
-            {/* Accessible Hover / Focus Tooltip */}
-            <div className="as-node-tooltip" role="tooltip">
-              <span className="as-node-tooltip-title">
-                {agent.name}
-              </span>
-              <span className="as-node-tooltip-sub">{agent.provider} • {agent.role}</span>
-              <span className="as-node-tooltip-tag">{agent.status}</span>
+              {/* Glass surface with subtle radial gradient reflection */}
+              <div className="as-node-content">
+                <ProviderLogo providerId={agent.id} size={logoSize} />
+                <span className="as-node-label">{agent.name}</span>
+              </div>
+
+              {/* High-visibility Identity Tooltip Card */}
+              <div
+                className={`as-node-card-tooltip ${activeTooltip === agent.id ? 'visible' : ''}`}
+                role="tooltip"
+              >
+                <div className="as-tooltip-header">
+                  <span className="as-tooltip-name">{agent.name}</span>
+                  <span className="as-tooltip-badge">{agent.status}</span>
+                </div>
+                <div className="as-tooltip-provider">{agent.provider} • {agent.connectionType}</div>
+                <div className="as-tooltip-role">{agent.role}</div>
+              </div>
             </div>
           </div>
         );
