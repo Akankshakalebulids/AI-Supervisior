@@ -40,7 +40,26 @@ import { Approvals } from './pages/Approvals';
 import { Settings } from './pages/Settings';
 import { LandingPage } from './pages/LandingPage';
 
+const getInitialRoute = (): 'landing' | 'app' => {
+  if (typeof window === 'undefined') return 'landing';
+  const path = window.location.pathname.toLowerCase();
+  const hash = window.location.hash.toLowerCase();
+  const search = window.location.search.toLowerCase();
+  if (
+    path.startsWith('/app') ||
+    path.startsWith('/control-room') ||
+    hash.includes('control-room') ||
+    hash.includes('app') ||
+    search.includes('view=app') ||
+    search.includes('view=control-room')
+  ) {
+    return 'app';
+  }
+  return 'landing';
+};
+
 export const App: React.FC = () => {
+  const [currentRoute, setCurrentRoute] = useState<'landing' | 'app'>(getInitialRoute);
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [missions, setMissions] = useState<Mission[]>([]);
   const [selectedMissionId, setSelectedMissionId] = useState<string | null>(null);
@@ -52,6 +71,42 @@ export const App: React.FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [syncStatus, setSyncStatus] = useState<SyncStatus | null>(null);
   const [interventions, setInterventions] = useState<InterventionDetail[]>([]);
+
+  // Route Synchronization
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setCurrentRoute(getInitialRoute());
+    };
+    window.addEventListener('popstate', handleRouteChange);
+    window.addEventListener('hashchange', handleRouteChange);
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+      window.removeEventListener('hashchange', handleRouteChange);
+    };
+  }, []);
+
+  const navigateToControlRoom = useCallback((tab: TabType = 'overview') => {
+    setActiveTab(tab);
+    setCurrentRoute('app');
+    if (window.location.pathname !== '/app') {
+      try {
+        window.history.pushState(null, '', '/app');
+      } catch {
+        window.location.hash = '#control-room';
+      }
+    }
+  }, []);
+
+  const navigateToLanding = useCallback(() => {
+    setCurrentRoute('landing');
+    if (window.location.pathname !== '/') {
+      try {
+        window.history.pushState(null, '', '/');
+      } catch {
+        window.location.hash = '';
+      }
+    }
+  }, []);
 
   // Modals
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
@@ -176,7 +231,17 @@ export const App: React.FC = () => {
   ).length;
   const activeAgentsCount = agents.filter(a => a.status === 'RUNNING' || a.status === 'BUSY').length;
 
-  // Initial loading state
+  // If visitor is on the landing page route, render the signature Landing Page immediately
+  if (currentRoute === 'landing') {
+    return (
+      <LandingPage
+        onStartSupervising={() => navigateToControlRoom('overview')}
+        onRunDemo={handleSeedDemo}
+      />
+    );
+  }
+
+  // Initial loading state for Control Room runtime connection
   if (isInitialLoading) {
     return (
       <div style={{
@@ -211,7 +276,6 @@ export const App: React.FC = () => {
     );
   }
 
-
   return (
     <div className="app-shell">
       {/* Restrained Modern Sidebar */}
@@ -225,6 +289,7 @@ export const App: React.FC = () => {
         wsLatency={wsLatency}
         syncStatus={syncStatus}
         onOpenSync={() => setIsSyncOpen(true)}
+        onNavigateToLanding={navigateToLanding}
       />
 
       {/* Main Container */}
@@ -238,6 +303,7 @@ export const App: React.FC = () => {
           onRefresh={loadData}
           isRefreshing={isRefreshing}
           onOpenHud={window.supervisorDesktop?.showHud ? () => window.supervisorDesktop?.showHud() : undefined}
+          onNavigateToLanding={navigateToLanding}
         />
 
         {/* Scrollable View Area */}

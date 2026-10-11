@@ -4,7 +4,8 @@ import {
   Plus, 
   FlaskConical, 
   RefreshCw, 
-  Layers
+  Layers,
+  Sparkles
 } from 'lucide-react';
 
 interface TopBarProps {
@@ -15,6 +16,7 @@ interface TopBarProps {
   onRefresh: () => void;
   isRefreshing: boolean;
   onOpenHud?: () => void;
+  onNavigateToLanding?: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -24,7 +26,8 @@ export const TopBar: React.FC<TopBarProps> = ({
   isSeeding,
   onRefresh,
   isRefreshing,
-  onOpenHud
+  onOpenHud,
+  onNavigateToLanding
 }) => {
   return (
     <header className="app-topbar">
@@ -73,6 +76,18 @@ export const TopBar: React.FC<TopBarProps> = ({
           <Plus size={14} />
           <span>Start a Mission</span>
         </button>
+
+        {/* Landing Page Launcher */}
+        {onNavigateToLanding && (
+          <button
+            className="btn btn-ghost btn-sm"
+            onClick={onNavigateToLanding}
+            title="View AI Supervisor Landing Page"
+          >
+            <Sparkles size={13} color="var(--primary)" />
+            <span>Landing Page</span>
+          </button>
+        )}
 
         {/* HUD Launcher (if supported) */}
         {onOpenHud && (
