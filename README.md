@@ -5,7 +5,6 @@
 > *"Your AI agents work. Your Supervisor makes sure they finish the job."*
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-ai--supervisior.vercel.app-blueviolet?style=for-the-badge&logo=vercel)](https://ai-supervisior.vercel.app/)
-[![Tests](https://img.shields.io/badge/tests-274%20passed%20%7C%207%20skipped%20%7C%200%20failed-success?style=for-the-badge)](tests/)
 [![FastAPI](https://img.shields.io/badge/backend-FastAPI%20%2B%20Python%203.11%2B-009688?style=for-the-badge&logo=fastapi)](apps/api/)
 [![Frontend](https://img.shields.io/badge/frontend-React%2019%20%2B%20TypeScript-61DAFB?style=for-the-badge&logo=react)](apps/control-room/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)](LICENSE)
