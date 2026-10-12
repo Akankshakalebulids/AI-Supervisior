@@ -304,6 +304,8 @@ export const App: React.FC = () => {
           isRefreshing={isRefreshing}
           onOpenHud={window.supervisorDesktop?.showHud ? () => window.supervisorDesktop?.showHud() : undefined}
           onNavigateToLanding={navigateToLanding}
+          wsConnected={wsConnected}
+          wsLatency={wsLatency}
         />
 
         {/* Scrollable View Area */}

@@ -67,6 +67,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
         <div>
           <div className="brand-title">AI Supervisor</div>
+          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 550, letterSpacing: '0.02em', marginTop: '1px' }}>
+            Control Plane
+          </div>
         </div>
         <span className="brand-tag">v1.0</span>
       </div>

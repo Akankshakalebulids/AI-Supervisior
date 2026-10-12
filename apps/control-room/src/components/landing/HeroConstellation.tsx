@@ -18,165 +18,165 @@ interface ConstellationAgent {
 }
 
 const SUPPORTED_AGENTS: ConstellationAgent[] = [
-  // 1. Claude Code — Prominent Focal Anchor (Top-Left)
+  // 1. DigitalOcean Agent — Satellite Node (Extreme Far Left Top)
+  {
+    id: 'digitalocean',
+    name: 'DigitalOcean Agent',
+    provider: 'DigitalOcean',
+    role: 'Isolated MicroVM Cloud Sandbox',
+    size: 115,
+    x: 3,
+    y: 6,
+    mobileX: 4,
+    mobileY: 4,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.85,
+    status: 'MicroVM Sandbox',
+    connectionType: 'Cloud Hypervisor'
+  },
+  // 2. Claude Code — Prominent Focal Anchor (Far Left Upper)
   {
     id: 'claude_code',
     name: 'Claude Code',
     provider: 'Anthropic',
     role: 'Autonomous CLI & Code Editing',
-    size: 190,
-    x: 8,
-    y: 12,
-    mobileX: 10,
-    mobileY: 6,
+    size: 160,
+    x: 4,
+    y: 28,
+    mobileX: 6,
+    mobileY: 26,
     floatAnimation: 'as-float-slow-1',
     bloomDelay: 0.15,
     status: 'Native Adapter',
     connectionType: 'CLI Subprocess'
   },
-  // 2. Cursor — Large Focal Anchor (Mid-Right)
-  {
-    id: 'cursor',
-    name: 'Cursor',
-    provider: 'Anysphere',
-    role: 'IDE Worktree Execution & Codebase Patches',
-    size: 180,
-    x: 84,
-    y: 46,
-    mobileX: 82,
-    mobileY: 52,
-    floatAnimation: 'as-float-slow-2',
-    bloomDelay: 0.28,
-    status: 'Worktree Bridge',
-    connectionType: 'IPC Protocol'
-  },
-  // 3. Devin — Prominent Anchor (Bottom-Left)
-  {
-    id: 'devin',
-    name: 'Devin',
-    provider: 'Cognition',
-    role: 'End-to-End Autonomous Engineering',
-    size: 165,
-    x: 9,
-    y: 68,
-    mobileX: 12,
-    mobileY: 78,
-    floatAnimation: 'as-float-slow-3',
-    bloomDelay: 0.42,
-    status: 'Cloud Sandbox',
-    connectionType: 'REST API'
-  },
-  // 4. OpenAI Codex — Medium-Large Node (Top-Right)
-  {
-    id: 'codex',
-    name: 'OpenAI Codex',
-    provider: 'OpenAI',
-    role: 'Precision Code Repair & Algorithmic Handoff',
-    size: 155,
-    x: 81,
-    y: 12,
-    mobileX: 78,
-    mobileY: 8,
-    floatAnimation: 'as-float-slow-2',
-    bloomDelay: 0.22,
-    status: 'Native Adapter',
-    connectionType: 'Responses API'
-  },
-  // 5. Google Gemini CLI — Medium Node (Upper-Center-Right)
-  {
-    id: 'gemini',
-    name: 'Gemini CLI',
-    provider: 'Google DeepMind',
-    role: 'Architecture Planning & 1M-Token Context',
-    size: 140,
-    x: 65,
-    y: 4,
-    mobileX: 68,
-    mobileY: 2,
-    floatAnimation: 'as-float-slow-1',
-    bloomDelay: 0.35,
-    status: 'Native Adapter',
-    connectionType: 'SDK Runner'
-  },
-  // 6. Windsurf — Medium Node (Mid-Left)
+  // 3. Windsurf — Medium Node (Far Left Mid)
   {
     id: 'windsurf',
     name: 'Windsurf',
     provider: 'Codeium',
     role: 'Cascade Flow & AST-Aware Generation',
-    size: 135,
-    x: 3,
-    y: 40,
+    size: 130,
+    x: 2,
+    y: 52,
     mobileX: 4,
-    mobileY: 42,
+    mobileY: 50,
     floatAnimation: 'as-float-slow-3',
     bloomDelay: 0.5,
     status: 'Editor Bridge',
     connectionType: 'Worktree Sync'
   },
-  // 7. GitHub Copilot — Medium Node (Lower-Right)
+  // 4. Devin — Prominent Anchor (Far Left Lower)
   {
-    id: 'copilot',
-    name: 'GitHub Copilot',
-    provider: 'Microsoft / GitHub',
-    role: 'Multi-file Edits & Workspace Actions',
+    id: 'devin',
+    name: 'Devin',
+    provider: 'Cognition',
+    role: 'End-to-End Autonomous Engineering',
     size: 145,
-    x: 77,
-    y: 75,
-    mobileX: 76,
-    mobileY: 82,
-    floatAnimation: 'as-float-slow-1',
-    bloomDelay: 0.6,
-    status: 'Language Server',
-    connectionType: 'LSP / CLI'
+    x: 5,
+    y: 76,
+    mobileX: 6,
+    mobileY: 74,
+    floatAnimation: 'as-float-slow-3',
+    bloomDelay: 0.42,
+    status: 'Cloud Sandbox',
+    connectionType: 'REST API'
   },
-  // 8. Cline — Satellite Node (Lower-Center-Left)
+  // 5. Cline — Satellite Node (Bottom Left Orbit)
   {
     id: 'cline',
     name: 'Cline',
     provider: 'Autonomous Protocol',
     role: 'Terminal Execution & AST Patching',
-    size: 120,
-    x: 27,
-    y: 84,
-    mobileX: 30,
+    size: 110,
+    x: 18,
+    y: 89,
+    mobileX: 20,
     mobileY: 90,
     floatAnimation: 'as-float-slow-2',
     bloomDelay: 0.7,
     status: 'Native Adapter',
     connectionType: 'Local CLI'
   },
-  // 9. Hermes Agent — Satellite Node (Lower-Center-Right)
+  // 6. Gemini CLI — Medium Node (Extreme Far Right Top)
+  {
+    id: 'gemini',
+    name: 'Gemini CLI',
+    provider: 'Google DeepMind',
+    role: 'Architecture Planning & 1M-Token Context',
+    size: 125,
+    x: 90,
+    y: 6,
+    mobileX: 88,
+    mobileY: 4,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.35,
+    status: 'Native Adapter',
+    connectionType: 'SDK Runner'
+  },
+  // 7. OpenAI Codex — Medium-Large Node (Far Right Upper)
+  {
+    id: 'codex',
+    name: 'OpenAI Codex',
+    provider: 'OpenAI',
+    role: 'Precision Code Repair & Algorithmic Handoff',
+    size: 145,
+    x: 88,
+    y: 28,
+    mobileX: 86,
+    mobileY: 26,
+    floatAnimation: 'as-float-slow-2',
+    bloomDelay: 0.22,
+    status: 'Native Adapter',
+    connectionType: 'Responses API'
+  },
+  // 8. Cursor — Large Focal Anchor (Far Right Mid)
+  {
+    id: 'cursor',
+    name: 'Cursor',
+    provider: 'Anysphere',
+    role: 'IDE Worktree Execution & Patches',
+    size: 160,
+    x: 89,
+    y: 52,
+    mobileX: 87,
+    mobileY: 50,
+    floatAnimation: 'as-float-slow-2',
+    bloomDelay: 0.28,
+    status: 'Worktree Bridge',
+    connectionType: 'IPC Protocol'
+  },
+  // 9. GitHub Copilot — Medium Node (Far Right Lower)
+  {
+    id: 'copilot',
+    name: 'GitHub Copilot',
+    provider: 'Microsoft / GitHub',
+    role: 'Multi-file Edits & Workspace Actions',
+    size: 130,
+    x: 86,
+    y: 75,
+    mobileX: 84,
+    mobileY: 74,
+    floatAnimation: 'as-float-slow-1',
+    bloomDelay: 0.6,
+    status: 'Language Server',
+    connectionType: 'LSP / CLI'
+  },
+  // 10. Hermes Agent — Satellite Node (Bottom Right Orbit)
   {
     id: 'hermes',
     name: 'Hermes Agent',
     provider: 'Nous Research',
     role: 'Persistent Open-Weight Agent Sessions',
-    size: 125,
-    x: 52,
-    y: 85,
-    mobileX: 52,
-    mobileY: 92,
+    size: 115,
+    x: 72,
+    y: 89,
+    mobileX: 70,
+    mobileY: 90,
     floatAnimation: 'as-float-slow-3',
     bloomDelay: 0.78,
     status: 'Droplet Worker',
     connectionType: 'SSH / Docker'
-  },
-  // 10. DigitalOcean Agent — Satellite Node (Upper-Center-Left)
-  {
-    id: 'digitalocean',
-    name: 'DigitalOcean Agent',
-    provider: 'DigitalOcean',
-    role: 'Isolated MicroVM Cloud Sandbox',
-    size: 110,
-    x: 29,
-    y: 4,
-    mobileX: 30,
-    mobileY: 2,
-    floatAnimation: 'as-float-slow-1',
-    bloomDelay: 0.85,
-    status: 'MicroVM Sandbox',
-    connectionType: 'Cloud Hypervisor'
   }
 ];
 
