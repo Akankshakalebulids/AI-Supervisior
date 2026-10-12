@@ -313,12 +313,17 @@ export const Overview: React.FC<OverviewProps> = ({
           <div className="surface-card" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '20px', borderColor: 'var(--border-focus)' }}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px' }}>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                   <h2 style={{ fontSize: '18px' }}>{primaryActiveMission.title}</h2>
                   <span className="status-pill">
                     <span className="status-dot running" />
                     <span>{primaryActiveMission.status.toLowerCase()}</span>
                   </span>
+                  {(primaryActiveMission.id.includes('demo') || primaryActiveMission.title.includes('Scenario')) && (
+                    <span className="badge badge-amber" style={{ fontSize: '10.5px' }} title="Deterministic demonstration scenario for evaluation">
+                      DEMO SCENARIO
+                    </span>
+                  )}
                 </div>
                 <p style={{ fontSize: '13px', color: 'var(--text-secondary)', maxWidth: '720px' }}>
                   {primaryActiveMission.goal}

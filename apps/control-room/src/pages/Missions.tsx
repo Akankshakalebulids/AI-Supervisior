@@ -223,12 +223,17 @@ export const Missions: React.FC<MissionsProps> = ({
         <div className="surface-card" style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
                 <h1 style={{ fontSize: '22px' }}>{selectedMission.title}</h1>
                 <span className="status-pill">
                   <span className={`status-dot ${selectedMission.status === 'RUNNING' ? 'running' : selectedMission.status === 'COMPLETED' ? 'active' : 'idle'}`} />
                   <span>{selectedMission.status.toLowerCase()}</span>
                 </span>
+                {(selectedMission.id.includes('demo') || selectedMission.title.includes('Scenario')) && (
+                  <span className="badge badge-amber" style={{ fontSize: '10.5px' }} title="Deterministic demonstration scenario for evaluation">
+                    DEMO SCENARIO
+                  </span>
+                )}
               </div>
               <p style={{ fontSize: '14px', color: 'var(--text-secondary)', maxWidth: '780px' }}>
                 {selectedMission.goal}
@@ -821,10 +826,15 @@ export const Missions: React.FC<MissionsProps> = ({
                 <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
                   <span className={`status-dot ${m.status === 'RUNNING' ? 'running' : m.status === 'COMPLETED' ? 'active' : isAttention ? 'watching' : 'idle'}`} />
                   <div style={{ minWidth: 0 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                       <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
                         {m.title}
                       </span>
+                      {(m.id.includes('demo') || m.title.includes('Scenario')) && (
+                        <span className="badge badge-neutral" style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
+                          DEMO
+                        </span>
+                      )}
                       {isAttention && (
                         <span className="badge badge-amber" style={{ fontSize: '10px' }}>
                           <AlertTriangle size={10} /> Needs Attention
