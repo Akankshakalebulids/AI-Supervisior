@@ -1,7 +1,7 @@
 import React from 'react';
 import '../landing.css';
 import { LandingNav } from '../components/landing/LandingNav';
-import { HeroConstellation } from '../components/landing/HeroConstellation';
+import { Cinematic3DBackground } from '../components/landing/Cinematic3DBackground';
 import { ProblemSection } from '../components/landing/ProblemSection';
 import { SupervisionWorkflow } from '../components/landing/SupervisionWorkflow';
 import { ControlRoomPreview } from '../components/landing/ControlRoomPreview';
@@ -27,16 +27,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div className="as-landing" id="hero">
+      {/* Signature Cinematic Layered 3D WebGL Background (Velyana AI Control Plane Inspired) */}
+      <Cinematic3DBackground />
+
       {/* Reference-inspired background with dot-matrix grid and radial lighting */}
       <div className="as-landing-bg" />
 
       {/* Floating Glassmorphic Pill Header */}
       <LandingNav onLaunchControlRoom={onStartSupervising} />
 
-      {/* SECTION A — HERO SECTION (SIGNATURE CIRCULAR AGENT CONSTELLATION) */}
+      {/* SECTION A — HERO SECTION */}
       <section className="as-hero-section">
-        {/* Dynamic Blooming & Floating Circular Agent Constellation */}
-        <HeroConstellation />
 
         <div className="as-hero-container">
           {/* Status Pill */}
