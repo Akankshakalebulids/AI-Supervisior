@@ -96,7 +96,7 @@ AI Supervisor explicitly decouples the control plane into three distinct layers:
 
 ---
 
-## 4. Supervisory Control Flow
+## 4. Supervisory Control Flow:
 
 ```
 User Goal
